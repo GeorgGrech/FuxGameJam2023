@@ -11,6 +11,7 @@ public class VillagerRecruiter : MonoBehaviour
 
     //private SphereCollider radiusCollider;
     [SerializeField] private float recruitSizeIncrease = .15f;
+
     // Start is called before the first frame update
     void Start()
     {
