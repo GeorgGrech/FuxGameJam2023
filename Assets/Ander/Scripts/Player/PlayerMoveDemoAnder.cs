@@ -7,7 +7,11 @@ public class PlayerMoveDemoAnder : MonoBehaviour
     private CharacterController controller;
     private float gravity = 9.8f;
     private float verticalSpeed = 0;
+
+    [SerializeField] private float baseSpeed;
     [SerializeField] private float movementSpeed = 0;
+    [SerializeField] private float defendingSpeed;
+    
     [SerializeField] private Transform characterBody; // Reference to the character's body.
 
     // Start is called before the first frame update
@@ -54,4 +58,16 @@ public class PlayerMoveDemoAnder : MonoBehaviour
             characterBody.forward = lookDirection;
         }
     }
+
+
+    public void DefendingSpeed()
+    {
+        movementSpeed = defendingSpeed;
+    }
+
+    public void ReturnToNormalSpeed()
+    {
+        movementSpeed = baseSpeed;
+    }
+
 }
