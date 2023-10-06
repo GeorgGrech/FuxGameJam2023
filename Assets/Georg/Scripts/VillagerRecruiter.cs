@@ -22,7 +22,6 @@ public class VillagerRecruiter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTrigger");
         if (other.CompareTag("Villager"))
         {
             Villager villager = other.GetComponent<Villager>();
@@ -54,12 +53,18 @@ public class VillagerRecruiter : MonoBehaviour
         {
             foreach (Villager villager in unrecruitedInRange)
             {
-                villager.recruitedLevel += baseRecruitSpeed * Time.deltaTime; //Modify to slow down with amount of villagers
+                villager.EnableSlider(true);
+                villager.recruitedLevel += (baseRecruitSpeed * Time.deltaTime) / unrecruitedInRange.Count;
+                villager.UpdateSlider();
 
                 if (villager.recruitedLevel >= 1)
                 {
                     villager.recruited = true;
                     //unrecruitedInRange.Remove(villager);
+                    villager.EnableSlider(false);
+
+                    villager.UpdateModel();
+
                     toRemove.Add(villager);
                 }  
             }
