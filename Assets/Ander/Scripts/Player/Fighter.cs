@@ -8,6 +8,9 @@ public class Fighter : MonoBehaviour
     public GameObject hitbox;
     public GameObject defendSphere;
     public PlayerMoveDemoAnder playerMoveDemoAnder; // Reference to the PlayerMoveDemoAnder script.
+    [SerializeField] public int damageAmount = 10;
+
+    private Coroutine AttackCourotine;
 
 
 
@@ -20,9 +23,10 @@ public class Fighter : MonoBehaviour
     }
 
     [SerializeField] private float attackCooldown = 0.5f;
-    private bool canAttack = true;
-    private bool isDefending = false;
+    public bool canAttack = true;
+    public bool isDefending = false;
     public LayerMask enemyLayer; // Set this in the Inspector to the layer where your enemies are.
+
 
     // Update is called once per frame
     void Update()
@@ -59,18 +63,20 @@ public class Fighter : MonoBehaviour
             if (hitCollider.CompareTag("Enemy"))
             {
                 // Deal damage to the enemy 
-                EnemyHealth enemyHealth = hitCollider.GetComponent<EnemyHealth>();
-                if (enemyHealth != null)
+                Health Health = hitCollider.GetComponent<Health>();
+                if (Health != null)
                 {
-                    Debug.Log("Enemy Taking Damage");
-                    
-                    enemyHealth.TakeDamage(10); 
+                    Debug.Log("Dealing Damage");
+
+                    Health.TakeDamage(damageAmount); 
                 }
             }
         }
 
         // Set a cooldown to limit the attack rate.
-        StartCoroutine(AttackCooldown());
+        AttackCourotine = StartCoroutine(AttackCooldown());
+
+
     }
 
     IEnumerator AttackCooldown()
@@ -86,17 +92,25 @@ public class Fighter : MonoBehaviour
         canAttack = false;
         // Set the character to defend.
         isDefending = true;
+
+        StopCoroutine(AttackCourotine); // Check if AttackCoroutine is not null before stopping it.
+        
         playerMoveDemoAnder.DefendingSpeed(); // Call the DefendingSpeed method from PlayerMoveDemoAnder.                                      
-        defendSphere.SetActive(true);// Show the defense sphere.
+        defendSphere.SetActive(true); // Show the defense sphere.
+
     }
 
     void StopDefending()
     {
         // Reset character's state to normal.
+        StartCoroutine(AttackCooldown());
         canAttack = true;
         isDefending = false;
+
         playerMoveDemoAnder.ReturnToNormalSpeed(); // Call the ReturnToNormalSpeed method from PlayerMoveDemoAnder.
         defendSphere.SetActive(false);// Show the defense sphere.
 
     }
+
+   
 }
