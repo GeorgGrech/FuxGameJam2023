@@ -8,10 +8,13 @@ public class VillagerRecruiter : MonoBehaviour
     [SerializeField] private List<Villager> unrecruitedInRange;
 
     [SerializeField] private float baseRecruitSpeed;
+
+    //private SphereCollider radiusCollider;
+    [SerializeField] private float recruitSizeIncrease = .15f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //radiusCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -66,6 +69,8 @@ public class VillagerRecruiter : MonoBehaviour
                     villager.UpdateModel();
 
                     toRemove.Add(villager);
+
+                    IncreaseRadiusSize();
                 }  
             }
             
@@ -74,5 +79,10 @@ public class VillagerRecruiter : MonoBehaviour
                 unrecruitedInRange.Remove(villager);
             }
         }
+    }
+
+    void IncreaseRadiusSize()
+    {
+        transform.localScale += new Vector3(recruitSizeIncrease, recruitSizeIncrease, recruitSizeIncrease);
     }
 }
