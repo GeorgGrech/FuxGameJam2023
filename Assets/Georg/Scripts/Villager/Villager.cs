@@ -23,7 +23,7 @@ public class Villager : MonoBehaviour
     public Transform player;
 
     [SerializeField] Collider detectEnemyTrigger;
-    [SerializeField] private List<Transform> enemiesInRange;
+    public List<Transform> enemiesInRange;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +43,14 @@ public class Villager : MonoBehaviour
     {
         villagerCanvas.forward = mainCam.transform.forward;
 
-        if(recruited && gameManager.gameState != GameManager.GameState.Attacking)
+        if(recruited)
         {
             if (ClosestEnemy()) //If there is a closest enemy
             {
+                Debug.Log("Closest: "+ClosestEnemy().name);
                 agent.SetDestination(ClosestEnemy().position);
             }
-            else
+            else if(gameManager.gameState != GameManager.GameState.Attacking)
             {
                 agent.SetDestination(player.position);
             }
@@ -76,9 +77,9 @@ public class Villager : MonoBehaviour
         agent.SetDestination(attackPoint);
     }
 
-    public void EnableDetectEnemy()
+    public void EnableDetectEnemy(bool enable)
     {
-        detectEnemyTrigger.enabled = true;
+        detectEnemyTrigger.enabled = enable;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,7 +104,7 @@ public class Villager : MonoBehaviour
 
 
         Transform closestEnemy = null;
-        float closestDistance = 10;
+        float closestDistance = float.MaxValue;
         foreach (Transform enemy in enemiesInRange)
         {
             if (!enemy)
