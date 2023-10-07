@@ -47,7 +47,6 @@ public class Villager : MonoBehaviour
         {
             if (ClosestEnemy()) //If there is a closest enemy
             {
-                Debug.Log("Closest: "+ClosestEnemy().name);
                 agent.SetDestination(ClosestEnemy().position);
             }
             else if(gameManager.gameState != GameManager.GameState.Attacking)

@@ -1,18 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TestEnemy : MonoBehaviour
 {
     [SerializeField] private bool isCastleEnemy;
 
+    private NavMeshAgent agent;
+
+    [SerializeField] Collider detectEnemyTrigger; //Detects player and recruited villagers in vicinity
+    public List<Transform> enemiesInRange;
+
+    GameManager gameManager;
+
     private void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+
+        gameManager = GameManager._instance;
         if (isCastleEnemy)
         {
-            GameManager._instance.castleEnemies.Add(transform);
-            GameManager._instance.castleEnemyCount++;
+            gameManager.castleEnemies.Add(transform);
+            gameManager.castleEnemyCount++;
         }
+    }
+
+    void Update()
+    {
+        if (ClosestEnemy()) //If there is a closest enemy
+        {
+            agent.SetDestination(ClosestEnemy().position);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            enemiesInRange.Add(other.transform);
+        }
+        else if (other.CompareTag("Villager"))
+        {
+            if (other.GetComponent<Villager>().recruited) //Only attack recruited enemies
+            {
+                enemiesInRange.Add(other.transform);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")||other.CompareTag("Villager"))
+        {
+            enemiesInRange.Remove(other.transform);
+        }
+    }
+
+    private Transform ClosestEnemy()
+    {
+        List<Transform> toRemove = new List<Transform>();
+
+
+        Transform closestEnemy = null;
+        float closestDistance = float.MaxValue;
+        foreach (Transform enemy in enemiesInRange)
+        {
+            if (!enemy)
+            {
+                toRemove.Add(enemy);
+                continue;
+            }
+
+            float checkDistance = Vector3.Distance(enemy.position, transform.position);
+            if (checkDistance < closestDistance)
+            {
+                closestDistance = checkDistance;
+                closestEnemy = enemy;
+            }
+        }
+
+        foreach (Transform enemy in toRemove)
+        {
+            enemiesInRange.Remove(enemy);
+        }
+        return closestEnemy;
     }
 
     [ContextMenu("Kill Enemy")]
@@ -20,7 +92,7 @@ public class TestEnemy : MonoBehaviour
     {
         if(isCastleEnemy)
         {
-            GameManager._instance.CastleEnemyDeath(transform);
+            gameManager.CastleEnemyDeath(transform);
         }
         Destroy(gameObject);
     }
