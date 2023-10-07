@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     public List<Villager> recruitedVillagers;
 
+    public List<Transform> castleEnemies;
+    public int castleEnemyCount;
+
     public enum GameState
     {
         Recruitement,
@@ -28,7 +31,6 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState;
 
-    public Transform castleAttackPoint;
     // Start is called before the first frame update
 
     private void Awake()
@@ -105,7 +107,9 @@ public class GameManager : MonoBehaviour
 
         foreach (Villager villager in recruitedVillagers)
         {
-            villager.GoToAttackPoint(castleAttackPoint.position);
+            villager.EnableDetectEnemy(false); //Turn off detection trigger. Enemies will now be targeted even if out of range
+            villager.enemiesInRange = castleEnemies; //Set possible enemies to attack as all castleEnemies
+            //villager.GoToAttackPoint(castleAttackPoint.position);
         }
     }
 
@@ -124,5 +128,16 @@ public class GameManager : MonoBehaviour
         messageText.text = message;
         yield return new WaitForSeconds(messageTime);
         messageText.text = string.Empty;
+    }
+
+    public void CastleEnemyDeath(Transform enemy)
+    {
+        castleEnemies.Remove(enemy);
+        castleEnemyCount--;
+
+        if(castleEnemies.Count <= 0)
+        {
+            Debug.Log("Win condition");
+        }
     }
 }

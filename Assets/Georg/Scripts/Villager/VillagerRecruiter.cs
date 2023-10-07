@@ -94,7 +94,7 @@ public class VillagerRecruiter : MonoBehaviour
         villager.UpdateModel();
         gameManager.recruitedVillagers.Add(villager);
 
-        villager.EnableDetectEnemy();
+        villager.EnableDetectEnemy(true);
     }
 
     void IncreaseRadiusSize()
