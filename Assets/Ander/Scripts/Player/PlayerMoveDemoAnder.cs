@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMoveDemoAnder : MonoBehaviour
 {
+
+    [SerializeField] private Animator anim;
+    private Vector3 lastPosition;
+
     private CharacterController controller;
     private float gravity = 9.8f;
     private float verticalSpeed = 0;
@@ -18,6 +22,7 @@ public class PlayerMoveDemoAnder : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        lastPosition = this.gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -25,10 +30,21 @@ public class PlayerMoveDemoAnder : MonoBehaviour
     {
         MovementInput();
         RotateCharacter();
+
+        if (this.gameObject.transform.position == lastPosition)
+        {
+            anim.SetBool("isWalking", false);
+        }
+        else
+        {
+            anim.SetBool("isWalking", true);
+        }
+
+        lastPosition = this.gameObject.transform.position;
     }
 
     void MovementInput()
-    {
+    {   
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         if (controller.isGrounded)
