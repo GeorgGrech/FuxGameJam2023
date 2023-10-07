@@ -9,10 +9,11 @@ public class TestEnemy : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    [SerializeField] Collider detectEnemyTrigger; //Detects player and recruited villagers in vicinity
     public List<Transform> enemiesInRange;
 
     GameManager gameManager;
+
+    [SerializeField] Transform characterCanvas;
 
     private void Start()
     {
@@ -28,6 +29,8 @@ public class TestEnemy : MonoBehaviour
 
     void Update()
     {
+        characterCanvas.rotation = Camera.main.transform.rotation;
+
         if (ClosestEnemy()) //If there is a closest enemy
         {
             agent.SetDestination(ClosestEnemy().position);

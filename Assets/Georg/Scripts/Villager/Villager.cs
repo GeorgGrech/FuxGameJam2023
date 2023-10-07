@@ -8,9 +8,7 @@ public class Villager : MonoBehaviour
 {
     GameManager gameManager;
 
-    Camera mainCam;
-
-    Transform villagerCanvas;
+    [SerializeField] Transform characterCanvas;
     Slider recruitSlider;
 
     public bool recruited;
@@ -27,9 +25,7 @@ public class Villager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainCam = Camera.main;
-        villagerCanvas = transform.Find("Canvas");
-        recruitSlider = villagerCanvas.Find("RecruitSlider").GetComponent<Slider>();
+        recruitSlider = characterCanvas.Find("RecruitSlider").GetComponent<Slider>();
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -41,7 +37,8 @@ public class Villager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        villagerCanvas.forward = mainCam.transform.forward;
+        //villagerCanvas.forward = mainCam.transform.forward;
+        characterCanvas.rotation = Camera.main.transform.rotation;
 
         if(recruited)
         {

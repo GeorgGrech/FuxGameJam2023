@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMoveDemo : MonoBehaviour
 {
+    [SerializeField] Transform characterCanvas;
+
     private CharacterController controller;
 
     private float gravity = 9.8f;
@@ -19,6 +21,7 @@ public class PlayerMoveDemo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        characterCanvas.rotation = Camera.main.transform.rotation;
         MovementInput();
     }
 
