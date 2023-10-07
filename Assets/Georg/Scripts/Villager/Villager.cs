@@ -92,7 +92,8 @@ public class Villager : MonoBehaviour
 
     public void EnableDetectEnemy(bool enable)
     {
-        detectEnemyTrigger.enabled = enable;
+        if(detectEnemyTrigger) //Fixes an error, I think
+            detectEnemyTrigger.enabled = enable;
     }
 
     private void OnTriggerEnter(Collider other)

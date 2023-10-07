@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
         castleEnemies.Remove(enemy);
         castleEnemyCount--;
 
-        if(castleEnemies.Count <= 0)
+        if(castleEnemyCount <= 0)
         {
             Debug.Log("Win condition");
         }
