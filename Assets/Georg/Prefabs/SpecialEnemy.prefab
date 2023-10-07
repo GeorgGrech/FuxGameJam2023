@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a389d9b667e6d7448845404d7cf110b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   damageAmount: 30
   hitbox: {fileID: 7610174835445344244}
   enemyLayer:

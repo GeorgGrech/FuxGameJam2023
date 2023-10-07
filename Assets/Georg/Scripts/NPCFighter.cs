@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class NPCFighter : MonoBehaviour
 {
+    private Vector3 lastPosition;
+
+    [SerializeField] private Animator animator;
     [SerializeField] public int damageAmount = 10;
     public GameObject hitbox;
 
@@ -12,10 +15,32 @@ public class NPCFighter : MonoBehaviour
     [SerializeField] private float attackFrequency;
 
     private Coroutine attackCycle;
-    
+
+
+    private void Start()
+    {
+        lastPosition = this.gameObject.transform.position;
+    }
+
+    private void Update()
+    {
+        if (this.gameObject.transform.position == lastPosition)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetBool("isWalking", true);
+        }
+
+        lastPosition = this.gameObject.transform.position;
+    }
+
     void Attack()
     {
+
         // Play the attack animation
+        animator.SetTrigger("attack");
         //anim.SetTrigger("attack");
 
         // Get the position of the hitbox.

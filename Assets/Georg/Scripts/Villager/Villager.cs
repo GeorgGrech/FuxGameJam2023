@@ -31,6 +31,8 @@ public class Villager : MonoBehaviour
     public float recruitWeight;
 
     TextMeshProUGUI villagerMessage;
+
+    [SerializeField] private List<MeshRenderer> toRecolor;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,12 +89,19 @@ public class Villager : MonoBehaviour
 
     public void UpdateModel()
     {
+        /*
         if (transform.Find("Body"))
         {
             transform.Find("Body").GetComponent<MeshRenderer>().material = recruitMaterial;
         }
         else
             GetComponent<MeshRenderer>().material = recruitMaterial; //Will be replaced by change in the model
+        */
+
+        foreach (MeshRenderer meshRenderer in toRecolor)
+        {
+            meshRenderer.material = recruitMaterial;
+        }
     }
 
     public void Speak(string message, float time)
@@ -163,4 +172,5 @@ public class Villager : MonoBehaviour
         }
         return closestEnemy;
     }
+
 }
