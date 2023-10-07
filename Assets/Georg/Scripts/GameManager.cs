@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1); //Else use regular scaled time that allows pauses
 
             timerSecondsLeft--;
+
+            ts = TimeSpan.FromSeconds(timerSecondsLeft);
+            timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
         }
 
         Debug.Log("Lose condition");
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Villager villager in recruitedVillagers)
         {
-            
+            villager.GoToAttackPoint(castleAttackPoint.position);
         }
     }
 }

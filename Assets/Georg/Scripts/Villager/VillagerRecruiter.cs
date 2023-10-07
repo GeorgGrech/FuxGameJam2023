@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class VillagerRecruiter : MonoBehaviour
 {
+    private GameManager gameManager;
+
     [SerializeField] private List<Villager> unrecruitedInRange;
 
     [SerializeField] private float baseRecruitSpeed;
@@ -16,12 +18,16 @@ public class VillagerRecruiter : MonoBehaviour
     void Start()
     {
         //radiusCollider = GetComponent<SphereCollider>();
+        gameManager = GameManager._instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        KeyboardInput();
+        if (gameManager.gameState != GameManager.GameState.Attacking)
+        {
+            RecruitEnemyInput();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,7 +56,7 @@ public class VillagerRecruiter : MonoBehaviour
         }
     }
 
-    void KeyboardInput()
+    void RecruitEnemyInput()
     {
         List<Villager> toRemove = new List<Villager>();
         if (Input.GetKey(KeyCode.E))
@@ -68,6 +74,7 @@ public class VillagerRecruiter : MonoBehaviour
                     villager.EnableSlider(false);
 
                     villager.UpdateModel();
+                    gameManager.recruitedVillagers.Add(villager);
 
                     toRemove.Add(villager);
 

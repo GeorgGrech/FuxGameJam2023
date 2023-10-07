@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Villager : MonoBehaviour
 {
+    GameManager gameManager;
+
     Camera mainCam;
 
     Transform villagerCanvas;
@@ -29,6 +31,8 @@ public class Villager : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         player = GameObject.FindWithTag("Player").transform;
+
+        gameManager = GameManager._instance;
     }
 
     // Update is called once per frame
@@ -36,8 +40,8 @@ public class Villager : MonoBehaviour
     {
         villagerCanvas.forward = mainCam.transform.forward;
 
-        if(recruited)
-            agent.destination = player.position;
+        if(recruited && gameManager.gameState!=GameManager.GameState.Attacking)
+            agent.SetDestination(player.position);
     }
 
     public void EnableSlider(bool enabled)
@@ -54,4 +58,10 @@ public class Villager : MonoBehaviour
     {
         GetComponent<MeshRenderer>().material = recruitMaterial; //Will be replaced by change in the model
     }
+
+    public void GoToAttackPoint(Vector3 attackPoint)
+    {
+        agent.SetDestination(attackPoint);
+    }
+
 }
