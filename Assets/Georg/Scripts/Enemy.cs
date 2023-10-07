@@ -110,6 +110,7 @@ public class Enemy : MonoBehaviour
         {
             gameManager.CastleEnemyDeath(transform);
         }
-        Destroy(gameObject);
+
+        GetComponent<EnemyLoot>().DropHealth();
     }
 }

@@ -48,15 +48,13 @@ public class Health : MonoBehaviour
     private void Die()
     {
         Debug.Log("Dead"); // Add this line for debugging
-        Destroy(gameObject);
         
         if (CompareTag("Enemy"))
         {
-            GetComponent<EnemyLoot>().DropHealth();
-
+            GetComponent<Enemy>().Death();
         }
         
-
+        Destroy(gameObject);
     }
 
     public void Heal(int amount)

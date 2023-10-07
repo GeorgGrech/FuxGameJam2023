@@ -65,6 +65,7 @@ public class Villager : MonoBehaviour
             else if(gameManager.gameState != GameManager.GameState.Attacking)
             {
                 agent.SetDestination(player.position);
+                fighter.StopAttack();
             }
         }
     }
