@@ -6,22 +6,33 @@ public class Health : MonoBehaviour
     public int MaxHealth;  // Maximum health.
     public int CurrentHealth;   // Current health.
 
-
     public GameObject HealthBarObject;
     private Image healthBar;
+
+    private Fighter fighter; // Reference to the Fighter script to check if defending.
+
     private void Start()
     {
-        // Initialize the current health to the maximum health when the enemy spawns.
+        // Initialize the current health to the maximum health when the entity spawns.
         CurrentHealth = MaxHealth;
 
         // Hide the health bar canvas on start.
         HealthBarObject.SetActive(false);
         healthBar = HealthBarObject.transform.GetChild(0).GetComponent<Image>();
-    }
 
+        // Get a reference to the Fighter script attached to the same GameObject.
+        fighter = GetComponent<Fighter>();
+    }
 
     public void TakeDamage(int damage)
     {
+        // Check if the entity is defending.
+        if (fighter != null && fighter.isDefending)
+        {
+            // The entity is defending, so it cannot take damage.
+            return;
+        }
+
         // Show the health bar canvas when taking damage.
         HealthBarObject.SetActive(true);
 
@@ -34,7 +45,7 @@ public class Health : MonoBehaviour
         // Calculate the new fill amount based on the updated health values.
         float newFillAmount = (float)CurrentHealth / MaxHealth;
 
-        // Update the health bar's fill amount.da
+        // Update the health bar's fill amount.
         healthBar.fillAmount = newFillAmount;
 
         // Check if health has dropped to or below zero.
@@ -44,16 +55,15 @@ public class Health : MonoBehaviour
         }
     }
 
-
     private void Die()
     {
         Debug.Log("Dead"); // Add this line for debugging
-        
+
         if (CompareTag("Enemy"))
         {
             GetComponent<Enemy>().Death();
         }
-        
+
         Destroy(gameObject);
     }
 
@@ -63,7 +73,6 @@ public class Health : MonoBehaviour
         CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth); // Ensure health doesn't exceed max.
         UpdateHealthBar();
     }
-
 
     public void UpdateHealthBar()
     {
