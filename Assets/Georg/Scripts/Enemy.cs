@@ -111,6 +111,7 @@ public class Enemy : MonoBehaviour
             gameManager.CastleEnemyDeath(transform);
         }
 
-        GetComponent<EnemyLoot>().DropHealth();
+        GetComponent<EnemyLoot>().DropPowerUp();
+        
     }
 }

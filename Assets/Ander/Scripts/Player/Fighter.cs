@@ -141,7 +141,7 @@ public class Fighter : MonoBehaviour
     {
         // Increase the player's damage amount.
         damageAmount += increaseAmount;
-        Debug.Log("Applied damage increase: " + damageAmount);
+            Debug.Log("Applied damage increase: " + damageAmount);
 
     }
 
