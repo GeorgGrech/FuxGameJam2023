@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Fighter : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
   
     public GameObject defendSphere;
     public PlayerMoveDemoAnder playerMoveDemoAnder; // Reference to the PlayerMoveDemoAnder script.
@@ -19,7 +19,7 @@ public class Fighter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         originalHitboxPosition = hitbox.transform.position;
 
     }
@@ -51,7 +51,7 @@ public class Fighter : MonoBehaviour
     void Attack()
     {
         // Play the attack animation
-
+        anim.SetTrigger("attack");
 
         // Get the position of the hitbox.
         Vector3 hitboxPosition = hitbox.transform.position;
@@ -101,6 +101,7 @@ public class Fighter : MonoBehaviour
     {
         canAttack = false;
         // Set the character to defend.
+        anim.SetBool("shieldActive", true);
         isDefending = true;
 
         StopCoroutine(AttackCooldown()); // Check if AttackCoroutine is not null before stopping it.
@@ -119,6 +120,7 @@ public class Fighter : MonoBehaviour
         // Reset character's state to normal.
         StartCoroutine(AttackCooldown());
         canAttack = true;
+        anim.SetBool("shieldActive", false);
         isDefending = false;
 
         playerMoveDemoAnder.ReturnToNormalSpeed(); // Call the ReturnToNormalSpeed method from PlayerMoveDemoAnder.
