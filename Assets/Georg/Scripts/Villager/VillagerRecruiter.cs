@@ -65,7 +65,7 @@ public class VillagerRecruiter : MonoBehaviour
             foreach (Villager villager in unrecruitedInRange)
             {
                 villager.EnableSlider(true);
-                villager.recruitedLevel += (baseRecruitSpeed * Time.deltaTime) / unrecruitedInRange.Count;
+                villager.recruitedLevel += (baseRecruitSpeed * Time.deltaTime) / unrecruitedInRange.Count / villager.recruitWeight;
                 villager.UpdateSlider();
 
                 if (villager.recruitedLevel >= 1)

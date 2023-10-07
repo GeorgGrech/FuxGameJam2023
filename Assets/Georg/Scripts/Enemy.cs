@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         {
             enemiesInRange.Add(other.transform);
         }
-        else if (other.CompareTag("Villager"))
+        else if (other.CompareTag("Villager") && !other.isTrigger)
         {
             if (other.GetComponent<Villager>().recruited) //Only attack recruited enemies
             {
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")||other.CompareTag("Villager"))
+        if (other.CompareTag("Player")||(other.CompareTag("Villager") && !other.isTrigger))
         {
             enemiesInRange.Remove(other.transform);
         }

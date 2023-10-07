@@ -188,6 +188,7 @@ MonoBehaviour:
   detectEnemyTrigger: {fileID: 6044958398869283752}
   enemiesInRange: []
   startAttackDistance: 2.5
+  recruitWeight: 1
 --- !u!54 &4510679669046740057
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9131eb47b05dd4bb96643f1288a459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 50
   CurrentHealth: 0
   HealthBarObject: {fileID: 4212283568262012892}
 --- !u!114 &4375690500200580057
