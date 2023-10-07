@@ -5,13 +5,14 @@ using UnityEngine;
 public class Fighter : MonoBehaviour
 {
     private Animator anim;
-    public GameObject hitbox;
+  
     public GameObject defendSphere;
     public PlayerMoveDemoAnder playerMoveDemoAnder; // Reference to the PlayerMoveDemoAnder script.
+
     [SerializeField] public int damageAmount = 10;
 
-    private Coroutine AttackCourotine;
-
+    public GameObject hitbox;
+    private Vector3 originalHitboxPosition; // Store the original position of the hitbox
 
 
 
@@ -19,6 +20,7 @@ public class Fighter : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        originalHitboxPosition = hitbox.transform.position;
 
     }
 
@@ -74,7 +76,7 @@ public class Fighter : MonoBehaviour
         }
 
         // Set a cooldown to limit the attack rate.
-        AttackCourotine = StartCoroutine(AttackCooldown());
+        StartCoroutine(AttackCooldown());
 
 
     }
@@ -82,22 +84,34 @@ public class Fighter : MonoBehaviour
     IEnumerator AttackCooldown()
     {
         canAttack = false;
+
+        // Check if the character is defending before allowing the cooldown to end.
+        while (isDefending)
+        {
+            yield return null; // Wait for the next frame.
+        }
+
         yield return new WaitForSeconds(attackCooldown);
+
         canAttack = true;
     }
 
 
-     void Defend()
+    void Defend()
     {
         canAttack = false;
         // Set the character to defend.
         isDefending = true;
 
-        StopCoroutine(AttackCourotine); // Check if AttackCoroutine is not null before stopping it.
-        
-        playerMoveDemoAnder.DefendingSpeed(); // Call the DefendingSpeed method from PlayerMoveDemoAnder.                                      
+        StopCoroutine(AttackCooldown()); // Check if AttackCoroutine is not null before stopping it.
+
+        playerMoveDemoAnder.DefendingSpeed(); // Call the DefendingSpeed method from PlayerMoveDemoAnder.
         defendSphere.SetActive(true); // Show the defense sphere.
 
+        // Calculate the new hitbox position relative to the player
+        Vector3 defendedHitboxOffset = new Vector3(0f, 2f, 0f); // Offset of 2 units up on the Y-axis
+        Vector3 defendedHitboxPosition = transform.position + defendedHitboxOffset;
+        hitbox.transform.position = defendedHitboxPosition;
     }
 
     void StopDefending()
@@ -108,9 +122,13 @@ public class Fighter : MonoBehaviour
         isDefending = false;
 
         playerMoveDemoAnder.ReturnToNormalSpeed(); // Call the ReturnToNormalSpeed method from PlayerMoveDemoAnder.
-        defendSphere.SetActive(false);// Show the defense sphere.
+        defendSphere.SetActive(false); // Hide the defense sphere.
 
+        // Calculate the new hitbox position in front of the player based on the player's facing direction.
+        Vector3 originalHitboxPositionInFrontOfPlayer = transform.position + transform.forward * originalHitboxPosition.z;
+        hitbox.transform.position = originalHitboxPositionInFrontOfPlayer;
     }
 
-   
+
+
 }
