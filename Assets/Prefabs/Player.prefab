@@ -49,6 +49,12 @@ MonoBehaviour:
   unrecruitedInRange: []
   baseRecruitSpeed: 1
   recruitSizeIncrease: 0.15
+  villagerMessages:
+  - Yeah, let's get 'em!
+  - I don't even know why I'm angry!
+  - Give me back my chicken!
+  - I have nothing better to do!
+  villagerMessageTime: 5
 --- !u!135 &4140996752358099438
 SphereCollider:
   m_ObjectHideFlags: 0
