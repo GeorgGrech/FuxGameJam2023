@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int MaxHealth = 100;  // Maximum health of the enemy.
-    private int CurrentHealth;   // Current health of the enemy.
+    public int MaxHealth;  // Maximum health.
+    public int CurrentHealth;   // Current health.
+    
 
     [SerializeField] private Image healthBar;
     private void Start()
@@ -29,20 +30,29 @@ public class Health : MonoBehaviour
         // Update the health bar's fill amount.da
         healthBar.fillAmount = newFillAmount;
 
-        // Check if the enemy's health has dropped to or below zero.
+        // Check if health has dropped to or below zero.
         if (CurrentHealth <= 0)
         {
-            // Call a method to handle enemy death (e.g., play death animation, remove the enemy, or trigger some event).
             Die();
         }
     }
 
 
-    // Method to handle enemy death.
     private void Die()
     {
+        Debug.Log("Dead"); // Add this line for debugging
         Destroy(gameObject);
+        
+        if (CompareTag("Enemy"))
+        {
+            GetComponent<EnemyLoot>().DropHealth();
+
+        }
+        
+
     }
+
+
 
     public void UpdateHealthBar(float enemyMaxHealth, float enemyCurrentHealth)
     {

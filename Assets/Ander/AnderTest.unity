@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 75474618}
   - component: {fileID: 75474617}
   - component: {fileID: 75474622}
+  - component: {fileID: 75474623}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -156,7 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9131eb47b05dd4bb96643f1288a459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 20
+  CurrentHealth: 20
   healthBar: {fileID: 768575308}
 --- !u!136 &75474618
 CapsuleCollider:
@@ -269,6 +271,21 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &75474623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75474616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6fe0716fba7f341b54bf1c535a4504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthPowerUp: {fileID: 4019881466057142370, guid: 19c61f839b5b22342b5c0b6a2645c629,
+    type: 3}
+  RagePowerUp: {fileID: 0}
 --- !u!1 &279533344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 50
+  CurrentHealth: 0
   healthBar: {fileID: 1473298075}
 --- !u!1 &1473298073
 GameObject:
