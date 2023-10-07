@@ -21,6 +21,9 @@ public class Villager : MonoBehaviour
     private NavMeshAgent agent;
 
     public Transform player;
+
+    [SerializeField] Collider detectEnemyTrigger;
+    [SerializeField] private List<Transform> enemiesInRange;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,8 +43,17 @@ public class Villager : MonoBehaviour
     {
         villagerCanvas.forward = mainCam.transform.forward;
 
-        if(recruited && gameManager.gameState!=GameManager.GameState.Attacking)
-            agent.SetDestination(player.position);
+        if(recruited && gameManager.gameState != GameManager.GameState.Attacking)
+        {
+            if (ClosestEnemy()) //If there is a closest enemy
+            {
+                agent.SetDestination(ClosestEnemy().position);
+            }
+            else
+            {
+                agent.SetDestination(player.position);
+            }
+        }
     }
 
     public void EnableSlider(bool enabled)
@@ -64,4 +76,54 @@ public class Villager : MonoBehaviour
         agent.SetDestination(attackPoint);
     }
 
+    public void EnableDetectEnemy()
+    {
+        detectEnemyTrigger.enabled = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            enemiesInRange.Add(other.transform); 
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            enemiesInRange.Remove(other.transform);
+        }
+    }
+
+    private Transform ClosestEnemy()
+    {
+        List<Transform> toRemove = new List<Transform>();
+
+
+        Transform closestEnemy = null;
+        float closestDistance = 10;
+        foreach (Transform enemy in enemiesInRange)
+        {
+            if (!enemy)
+            {
+                toRemove.Add(enemy);
+                continue;
+            }
+
+            float checkDistance = Vector3.Distance(enemy.position, transform.position);
+            if (checkDistance < closestDistance)
+            {
+                closestDistance = checkDistance;
+                closestEnemy = enemy;
+            }
+        }
+
+        foreach (Transform enemy in toRemove)
+        {
+            enemiesInRange.Remove(enemy);
+        }
+        return closestEnemy;
+    }
 }
