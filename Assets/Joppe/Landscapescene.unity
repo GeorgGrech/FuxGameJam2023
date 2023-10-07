@@ -1585,6 +1585,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1277325674}
+    - targetCorrespondingSourceObject: {fileID: 5660025632983004555, guid: 54f43eeb75f861b4ca60e71f66baa303,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1277325675}
   m_SourcePrefab: {fileID: 100100000, guid: 54f43eeb75f861b4ca60e71f66baa303, type: 3}
 --- !u!4 &1277325673 stripped
 Transform:
@@ -1611,6 +1615,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   attackFrequency: 0
+--- !u!114 &1277325675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496386544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6fe0716fba7f341b54bf1c535a4504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthPowerUp: {fileID: 5452468568883463142, guid: f9631422978a44e49adb51f4cfbe758d,
+    type: 3}
+  RagePowerUp: {fileID: 4019881466057142370, guid: c071ced0745c1c04ead9285a4935a70d,
+    type: 3}
+  dropRate: 0.5
 --- !u!1001 &1280340174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3094,6 +3115,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5038851543294953317, guid: 54f43eeb75f861b4ca60e71f66baa303,
+        type: 3}
+      propertyPath: dropRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5038851543294953317, guid: 54f43eeb75f861b4ca60e71f66baa303,
+        type: 3}
+      propertyPath: RagePowerUp
+      value: 
+      objectReference: {fileID: 5452468568883463142, guid: f9631422978a44e49adb51f4cfbe758d,
+        type: 3}
+    - target: {fileID: 5038851543294953317, guid: 54f43eeb75f861b4ca60e71f66baa303,
+        type: 3}
+      propertyPath: HealthPowerUp
+      value: 
+      objectReference: {fileID: 4019881466057142370, guid: c071ced0745c1c04ead9285a4935a70d,
+        type: 3}
     - target: {fileID: 5660025632983004555, guid: 54f43eeb75f861b4ca60e71f66baa303,
         type: 3}
       propertyPath: m_Name
