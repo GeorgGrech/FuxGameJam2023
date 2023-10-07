@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
 
         // Hide the health bar canvas on start.
         HealthBarObject.SetActive(false);
-        healthBar = HealthBarObject.GetComponent<Image>();
+        healthBar = HealthBarObject.transform.GetChild(0).GetComponent<Image>();
     }
 
 
