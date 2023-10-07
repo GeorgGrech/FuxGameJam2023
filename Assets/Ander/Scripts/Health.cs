@@ -3,20 +3,28 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int MaxHealth = 100;  // Maximum health of the enemy.
-    private int CurrentHealth;   // Current health of the enemy.
+    public int MaxHealth;  // Maximum health.
+    public int CurrentHealth;   // Current health.
 
-    [SerializeField] private Image healthBar;
+
+    public GameObject HealthBarObject;
+    private Image healthBar;
     private void Start()
     {
         // Initialize the current health to the maximum health when the enemy spawns.
         CurrentHealth = MaxHealth;
-        
+
+        // Hide the health bar canvas on start.
+        HealthBarObject.SetActive(false);
+        healthBar = HealthBarObject.transform.GetChild(0).GetComponent<Image>();
     }
 
 
     public void TakeDamage(int damage)
     {
+        // Show the health bar canvas when taking damage.
+        HealthBarObject.SetActive(true);
+
         // Reduce the current health by the amount of damage.
         CurrentHealth -= damage;
 
@@ -29,23 +37,39 @@ public class Health : MonoBehaviour
         // Update the health bar's fill amount.da
         healthBar.fillAmount = newFillAmount;
 
-        // Check if the enemy's health has dropped to or below zero.
+        // Check if health has dropped to or below zero.
         if (CurrentHealth <= 0)
         {
-            // Call a method to handle enemy death (e.g., play death animation, remove the enemy, or trigger some event).
             Die();
         }
     }
 
 
-    // Method to handle enemy death.
     private void Die()
     {
+        Debug.Log("Dead"); // Add this line for debugging
         Destroy(gameObject);
+        
+        if (CompareTag("Enemy"))
+        {
+            GetComponent<EnemyLoot>().DropHealth();
+
+        }
+        
+
     }
 
-    public void UpdateHealthBar(float enemyMaxHealth, float enemyCurrentHealth)
+    public void Heal(int amount)
     {
-        healthBar.fillAmount = enemyCurrentHealth / enemyMaxHealth;
+        CurrentHealth += amount;
+        CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth); // Ensure health doesn't exceed max.
+        UpdateHealthBar();
+    }
+
+
+    public void UpdateHealthBar()
+    {
+        float newFillAmount = (float)CurrentHealth / MaxHealth;
+        healthBar.fillAmount = newFillAmount;
     }
 }

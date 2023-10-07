@@ -83,7 +83,7 @@ public class PointerUI : MonoBehaviour
 
     public void Show(bool enable)
     {
-        arrowImg.enabled = enable;
+        //arrowImg.enabled = enable;
         shown = enable;
     }
 }
