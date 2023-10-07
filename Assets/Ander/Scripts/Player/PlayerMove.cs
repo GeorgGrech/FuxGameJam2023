@@ -14,10 +14,13 @@ public class PlayerMove : MonoBehaviour
     private float gravity = 9.8f;
     private float verticalSpeed = 0;
 
-    [SerializeField] private float baseSpeed;
-    [SerializeField] private float movementSpeed = 0;
-    [SerializeField] private float defendingSpeed;
-    
+    [SerializeField] public float baseSpeed;
+    [SerializeField] public float movementSpeed = 0;
+    [SerializeField] public float defendingSpeed;
+
+    public float originalMovementSpeed;
+
+
     [SerializeField] private Transform characterBody; // Reference to the character's body.
 
     // Start is called before the first frame update
@@ -25,6 +28,9 @@ public class PlayerMove : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         lastPosition = this.gameObject.transform.position;
+
+        originalMovementSpeed = movementSpeed;
+
     }
 
     // Update is called once per frame
@@ -48,7 +54,7 @@ public class PlayerMove : MonoBehaviour
     }
 
     void MovementInput()
-    {   
+    {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         if (controller.isGrounded)
@@ -88,6 +94,19 @@ public class PlayerMove : MonoBehaviour
     public void ReturnToNormalSpeed()
     {
         movementSpeed = baseSpeed;
+    }
+
+    public void ApplySpeedIncrease(float increaseAmount)
+    {
+        // Increase the player's movement speed.
+        movementSpeed += increaseAmount;
+        Debug.Log("Applied speed increase: " + movementSpeed);
+
+    }
+
+    public void RevertSpeedIncrease()
+    {
+        movementSpeed = originalMovementSpeed;
     }
 
 }

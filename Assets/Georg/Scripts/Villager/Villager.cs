@@ -27,6 +27,8 @@ public class Villager : MonoBehaviour
 
     [SerializeField] private float startAttackDistance;
 
+    public float recruitWeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,7 +84,12 @@ public class Villager : MonoBehaviour
 
     public void UpdateModel()
     {
-        GetComponent<MeshRenderer>().material = recruitMaterial; //Will be replaced by change in the model
+        if (transform.Find("Body"))
+        {
+            transform.Find("Body").GetComponent<MeshRenderer>().material = recruitMaterial;
+        }
+        else
+            GetComponent<MeshRenderer>().material = recruitMaterial; //Will be replaced by change in the model
     }
 
     public void GoToAttackPoint(Vector3 attackPoint)

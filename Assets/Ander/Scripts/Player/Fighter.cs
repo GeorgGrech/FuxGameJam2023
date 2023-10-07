@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fighter : MonoBehaviour
 {
     [SerializeField] private Animator anim;
-  
+
     public GameObject defendSphere;
     private PlayerMove playerMove; // Reference to the playerMove script.
 
@@ -13,6 +13,8 @@ public class Fighter : MonoBehaviour
 
     public GameObject hitbox;
     private Vector3 originalHitboxPosition; // Store the original position of the hitbox
+
+    private int originalDamageAmount;
 
 
 
@@ -23,6 +25,9 @@ public class Fighter : MonoBehaviour
         originalHitboxPosition = hitbox.transform.position;
 
         playerMove = GetComponent<PlayerMove>();
+
+        originalDamageAmount = damageAmount;
+
     }
 
     [SerializeField] private float attackCooldown = 0.5f;
@@ -71,7 +76,7 @@ public class Fighter : MonoBehaviour
                 {
                     Debug.Log("Dealing Damage");
 
-                    Health.TakeDamage(damageAmount); 
+                    Health.TakeDamage(damageAmount);
                 }
             }
         }
@@ -132,6 +137,17 @@ public class Fighter : MonoBehaviour
         hitbox.transform.position = originalHitboxPositionInFrontOfPlayer;
     }
 
+    public void ApplyDamageIncrease(int increaseAmount)
+    {
+        // Increase the player's damage amount.
+        damageAmount += increaseAmount;
+        Debug.Log("Applied damage increase: " + damageAmount);
 
+    }
+
+    public void RevertDamageIncrease()
+    {
+        damageAmount = originalDamageAmount;
+    }
 
 }

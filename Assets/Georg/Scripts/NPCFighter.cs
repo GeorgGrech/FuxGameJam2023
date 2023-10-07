@@ -51,10 +51,8 @@ public class NPCFighter : MonoBehaviour
 
     public void StopAttack()
     {
-        Debug.Log("Stop "+name+" 1");
         if(attackCycle != null)
         {
-            Debug.Log("Stop " + name + " 2");
             StopCoroutine(attackCycle);
         }
         attackCycle = null;
@@ -65,7 +63,6 @@ public class NPCFighter : MonoBehaviour
         while (true)
         {
             Attack();
-            Debug.Log("Attack! "+name);
             yield return new WaitForSeconds(attackFrequency);
         }
     }
