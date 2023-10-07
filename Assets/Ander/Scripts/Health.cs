@@ -5,24 +5,25 @@ public class Health : MonoBehaviour
 {
     public int MaxHealth;  // Maximum health.
     public int CurrentHealth;   // Current health.
-    public GameObject HealthBarCanvas;
 
 
-    [SerializeField] private Image healthBar;
+    public GameObject HealthBarObject;
+    private Image healthBar;
     private void Start()
     {
         // Initialize the current health to the maximum health when the enemy spawns.
         CurrentHealth = MaxHealth;
 
         // Hide the health bar canvas on start.
-        HealthBarCanvas.SetActive(false);
+        HealthBarObject.SetActive(false);
+        healthBar = HealthBarObject.GetComponent<Image>();
     }
 
 
     public void TakeDamage(int damage)
     {
         // Show the health bar canvas when taking damage.
-        HealthBarCanvas.SetActive(true);
+        HealthBarObject.SetActive(true);
 
         // Reduce the current health by the amount of damage.
         CurrentHealth -= damage;

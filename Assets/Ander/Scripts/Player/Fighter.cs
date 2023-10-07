@@ -7,7 +7,7 @@ public class Fighter : MonoBehaviour
     [SerializeField] private Animator anim;
   
     public GameObject defendSphere;
-    public PlayerMoveDemoAnder playerMoveDemoAnder; // Reference to the PlayerMoveDemoAnder script.
+    private PlayerMove playerMove; // Reference to the playerMove script.
 
     [SerializeField] public int damageAmount = 10;
 
@@ -22,6 +22,7 @@ public class Fighter : MonoBehaviour
         //anim = GetComponent<Animator>();
         originalHitboxPosition = hitbox.transform.position;
 
+        playerMove = GetComponent<PlayerMove>();
     }
 
     [SerializeField] private float attackCooldown = 0.5f;
@@ -62,7 +63,7 @@ public class Fighter : MonoBehaviour
         foreach (Collider hitCollider in hitColliders)
         {
             // Check if the hit object is an enemy 
-            if (hitCollider.CompareTag("Enemy"))
+            if (hitCollider.CompareTag("Enemy") && !hitCollider.isTrigger)
             {
                 // Deal damage to the enemy 
                 Health Health = hitCollider.GetComponent<Health>();
@@ -106,7 +107,7 @@ public class Fighter : MonoBehaviour
 
         StopCoroutine(AttackCooldown()); // Check if AttackCoroutine is not null before stopping it.
 
-        playerMoveDemoAnder.DefendingSpeed(); // Call the DefendingSpeed method from PlayerMoveDemoAnder.
+        playerMove.DefendingSpeed(); // Call the DefendingSpeed method from playerMove.
         defendSphere.SetActive(true); // Show the defense sphere.
 
         // Calculate the new hitbox position relative to the player
@@ -123,7 +124,7 @@ public class Fighter : MonoBehaviour
         anim.SetBool("shieldActive", false);
         isDefending = false;
 
-        playerMoveDemoAnder.ReturnToNormalSpeed(); // Call the ReturnToNormalSpeed method from PlayerMoveDemoAnder.
+        playerMove.ReturnToNormalSpeed(); // Call the ReturnToNormalSpeed method from playerMove.
         defendSphere.SetActive(false); // Hide the defense sphere.
 
         // Calculate the new hitbox position in front of the player based on the player's facing direction.

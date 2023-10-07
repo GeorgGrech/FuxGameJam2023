@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveDemoAnder : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] Transform characterCanvas;
+
 
     [SerializeField] private Animator anim;
     private Vector3 lastPosition;
@@ -28,6 +30,8 @@ public class PlayerMoveDemoAnder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        characterCanvas.rotation = Camera.main.transform.rotation;
+
         MovementInput();
         RotateCharacter();
 
