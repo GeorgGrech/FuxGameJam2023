@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 75474619}
   - component: {fileID: 75474618}
   - component: {fileID: 75474617}
+  - component: {fileID: 75474622}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -246,6 +247,28 @@ Transform:
   - {fileID: 347465163}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &75474622
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75474616}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &279533344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1024,12 @@ MonoBehaviour:
   target: {fileID: 0}
   targetOffset: {x: 0, y: 0.16, z: -0.43}
   movementSpeed: 5
+--- !u!95 &1293600432 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5438209918000826836, guid: 9f0ec1e5af6af3a4ba271c8f34800eff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1038166190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1311150791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,6 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc3c3d8f167e4449ac99dfe8f3e1920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1293600432}
   baseSpeed: 5
   movementSpeed: 5
   defendingSpeed: 2
@@ -1146,6 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0502a51083e354b4c8fc15d4e94532a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 1293600432}
   defendSphere: {fileID: 1847852673}
   playerMoveDemoAnder: {fileID: 1311150792}
   damageAmount: 10

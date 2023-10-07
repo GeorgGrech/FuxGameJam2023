@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> castleEnemies;
     public int castleEnemyCount;
 
-    [SerializeField] private Animator doorAnimator;
-
+    [SerializeField] private Transform door;
+    [SerializeField] private PointerUI pointerUI;
     public enum GameState
     {
         Recruitement,
@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Recruitement;
         messageText.text = string.Empty;
+
+        pointerUI.Show(false);
+        pointerUI.pointingTo = door.position;
 
         StartCoroutine(Timer());
     }
@@ -81,6 +84,8 @@ public class GameManager : MonoBehaviour
 
         while (timerSecondsLeft > 0 && gameState!=GameState.Attacking)
         {
+            pointerUI.Show(true);
+
             ts = TimeSpan.FromSeconds(timerSecondsLeft);
             timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
 
@@ -91,11 +96,12 @@ public class GameManager : MonoBehaviour
         }
 
         timerText.text = string.Empty;
+        pointerUI.Show(false);
 
-        if(gameState==GameState.Attacking)
+        if (gameState==GameState.Attacking)
         {
             DisplayMessage("ATTAAAAAAACK!!");
-            doorAnimator.Play("DoorOpen");
+            door.GetComponent<Animator>().Play("DoorOpen");
         }
         else
         {
