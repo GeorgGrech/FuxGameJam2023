@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -29,12 +30,14 @@ public class Villager : MonoBehaviour
 
     public float recruitWeight;
 
+    TextMeshProUGUI villagerMessage;
     // Start is called before the first frame update
     void Start()
     {
         fighter = GetComponent<NPCFighter>();
 
         recruitSlider = characterCanvas.Find("RecruitSlider").GetComponent<Slider>();
+        villagerMessage = characterCanvas.Find("Message").GetComponent<TextMeshProUGUI>();
 
         agent = GetComponent<NavMeshAgent>();
 
@@ -90,6 +93,18 @@ public class Villager : MonoBehaviour
         }
         else
             GetComponent<MeshRenderer>().material = recruitMaterial; //Will be replaced by change in the model
+    }
+
+    public void Speak(string message, float time)
+    {
+        StartCoroutine(SpeakCoroutine(message, time));
+    }
+
+    public IEnumerator SpeakCoroutine(string message, float time)
+    {
+        villagerMessage.text = message;
+        yield return new WaitForSeconds(time);
+        villagerMessage.text = string.Empty;
     }
 
     public void GoToAttackPoint(Vector3 attackPoint)

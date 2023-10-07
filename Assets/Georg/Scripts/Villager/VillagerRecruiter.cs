@@ -15,6 +15,9 @@ public class VillagerRecruiter : MonoBehaviour
     //private SphereCollider radiusCollider;
     [SerializeField] private float recruitSizeIncrease = .15f;
 
+    [SerializeField] private List<string> villagerMessages; 
+    [SerializeField] private float villagerMessageTime; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +98,9 @@ public class VillagerRecruiter : MonoBehaviour
         gameManager.recruitedVillagers.Add(villager);
 
         villager.EnableDetectEnemy(true);
+
+        string message = villagerMessages[Random.Range(0,villagerMessages.Count)];
+        villager.Speak(message, villagerMessageTime);
     }
 
     void IncreaseRadiusSize()
