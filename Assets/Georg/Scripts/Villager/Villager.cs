@@ -22,9 +22,16 @@ public class Villager : MonoBehaviour
 
     [SerializeField] Collider detectEnemyTrigger;
     public List<Transform> enemiesInRange;
+
+    private NPCFighter fighter;
+
+    [SerializeField] private float startAttackDistance;
+
     // Start is called before the first frame update
     void Start()
     {
+        fighter = GetComponent<NPCFighter>();
+
         recruitSlider = characterCanvas.Find("RecruitSlider").GetComponent<Slider>();
 
         agent = GetComponent<NavMeshAgent>();
@@ -45,6 +52,15 @@ public class Villager : MonoBehaviour
             if (ClosestEnemy()) //If there is a closest enemy
             {
                 agent.SetDestination(ClosestEnemy().position);
+
+                if (Vector3.Distance(transform.position, agent.destination) <= startAttackDistance)
+                {
+                    fighter.StartAttack();
+                }
+                else
+                {
+                    fighter.StopAttack();
+                }
             }
             else if(gameManager.gameState != GameManager.GameState.Attacking)
             {
