@@ -5,19 +5,25 @@ public class Health : MonoBehaviour
 {
     public int MaxHealth;  // Maximum health.
     public int CurrentHealth;   // Current health.
-    
+    public GameObject HealthBarCanvas;
+
 
     [SerializeField] private Image healthBar;
     private void Start()
     {
         // Initialize the current health to the maximum health when the enemy spawns.
         CurrentHealth = MaxHealth;
-        
+
+        // Hide the health bar canvas on start.
+        HealthBarCanvas.SetActive(false);
     }
 
 
     public void TakeDamage(int damage)
     {
+        // Show the health bar canvas when taking damage.
+        HealthBarCanvas.SetActive(true);
+
         // Reduce the current health by the amount of damage.
         CurrentHealth -= damage;
 
@@ -52,10 +58,17 @@ public class Health : MonoBehaviour
 
     }
 
-
-
-    public void UpdateHealthBar(float enemyMaxHealth, float enemyCurrentHealth)
+    public void Heal(int amount)
     {
-        healthBar.fillAmount = enemyCurrentHealth / enemyMaxHealth;
+        CurrentHealth += amount;
+        CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth); // Ensure health doesn't exceed max.
+        UpdateHealthBar();
+    }
+
+
+    public void UpdateHealthBar()
+    {
+        float newFillAmount = (float)CurrentHealth / MaxHealth;
+        healthBar.fillAmount = newFillAmount;
     }
 }
