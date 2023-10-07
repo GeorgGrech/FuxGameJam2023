@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public List<Transform> castleEnemies;
     public int castleEnemyCount;
 
+    [SerializeField] private Animator doorAnimator;
+
     public enum GameState
     {
         Recruitement,
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
         if(gameState==GameState.Attacking)
         {
             DisplayMessage("ATTAAAAAAACK!!");
+            doorAnimator.Play("DoorOpen");
         }
         else
         {
