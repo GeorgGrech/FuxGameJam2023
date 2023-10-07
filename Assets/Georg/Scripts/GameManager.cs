@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform door;
     [SerializeField] private PointerUI pointerUI;
+
+    private bool lost;
     public enum GameState
     {
         Recruitement,
@@ -105,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Lose condition");
+            Lose();
         }
 
     }
@@ -147,6 +149,15 @@ public class GameManager : MonoBehaviour
         if(castleEnemyCount <= 0)
         {
             Debug.Log("Win condition");
+        }
+    }
+
+    public void Lose() //Add parameter later for type of loss?
+    {
+        if (!lost) //Ensures no duplicate loss screens
+        {
+            lost = true;
+            Debug.Log("Lose condition");
         }
     }
 }

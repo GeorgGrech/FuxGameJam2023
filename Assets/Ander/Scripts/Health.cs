@@ -63,6 +63,10 @@ public class Health : MonoBehaviour
         {
             GetComponent<Enemy>().Death();
         }
+        else if (CompareTag("Player"))
+        {
+            GameManager._instance.Lose();
+        }
 
         Destroy(gameObject);
     }
