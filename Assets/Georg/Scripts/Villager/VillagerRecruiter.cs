@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -69,12 +70,7 @@ public class VillagerRecruiter : MonoBehaviour
 
                 if (villager.recruitedLevel >= 1)
                 {
-                    villager.recruited = true;
-                    //unrecruitedInRange.Remove(villager);
-                    villager.EnableSlider(false);
-
-                    villager.UpdateModel();
-                    gameManager.recruitedVillagers.Add(villager);
+                    RecruitVillager(villager);
 
                     toRemove.Add(villager);
 
@@ -87,6 +83,18 @@ public class VillagerRecruiter : MonoBehaviour
                 unrecruitedInRange.Remove(villager);
             }
         }
+    }
+
+    void RecruitVillager(Villager villager)
+    {
+        villager.recruited = true;
+        //unrecruitedInRange.Remove(villager);
+        villager.EnableSlider(false);
+
+        villager.UpdateModel();
+        gameManager.recruitedVillagers.Add(villager);
+
+        villager.EnableDetectEnemy();
     }
 
     void IncreaseRadiusSize()

@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 8847046798800627206}
   - component: {fileID: 4510679669046740057}
   - component: {fileID: -742017464352921253}
+  - component: {fileID: 6044958398869283752}
   m_Layer: 0
   m_Name: VillagerDemo
   m_TagString: Villager
@@ -253,6 +254,8 @@ MonoBehaviour:
   recruitedLevel: 0
   recruitMaterial: {fileID: 2100000, guid: d7d32c38eda8dc945a35ef64ad11d327, type: 2}
   player: {fileID: 0}
+  detectEnemyTrigger: {fileID: 6044958398869283752}
+  enemiesInRange: []
 --- !u!54 &4510679669046740057
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -302,6 +305,27 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!135 &6044958398869283752
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203325334125874373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 7
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1291751947913530967
 GameObject:
   m_ObjectHideFlags: 0
