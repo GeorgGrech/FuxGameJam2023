@@ -2,22 +2,24 @@ using UnityEngine;
 
 public class EnemyLoot : MonoBehaviour
 {
-    
-    public GameObject HealthPowerUp; // The GameObject to drop.
-    public GameObject RagePowerUp; // The GameObject to drop.
+    public GameObject HealthPowerUp; // The GameObject for the health power-up.
+    public GameObject RagePowerUp;   // The GameObject for the rage power-up.
 
+    [Range(0f, 1f)]
+    public float dropRate; // Drop rate for any power-up (0% to 100%).
 
-    public void DropHealth()
+    public void DropPowerUp()
     {
-        // Instantiate the itemToDrop GameObject at the enemy's position.
-        Instantiate(HealthPowerUp, transform.position, Quaternion.identity);
+        // Check if a random value falls within the drop rate range.
+        if (Random.value <= dropRate)
+        {
+            // Determine which power-up to drop randomly.
+            GameObject powerUpToDrop = (Random.value <= 0.5f) ? HealthPowerUp : RagePowerUp;
 
-    }
+            // Instantiate the chosen power-up at the enemy's position.
+            Instantiate(powerUpToDrop, transform.position, Quaternion.identity);
 
-
-    public void DropRage()
-    {
-        // Instantiate the itemToDrop GameObject at the enemy's position.
-        Instantiate(RagePowerUp, transform.position, Quaternion.identity);
+            Debug.Log("Dropped: " + (powerUpToDrop == HealthPowerUp ? "Health" : "Rage"));
+        }
     }
 }
