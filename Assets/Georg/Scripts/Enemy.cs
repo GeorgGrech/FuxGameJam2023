@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TestEnemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private bool isCastleEnemy;
 
@@ -15,8 +15,12 @@ public class TestEnemy : MonoBehaviour
 
     [SerializeField] Transform characterCanvas;
 
+    [SerializeField] private float startAttackDistance;
+
+    private NPCFighter fighter;
     private void Start()
     {
+        fighter = GetComponent<NPCFighter>();
         agent = GetComponent<NavMeshAgent>();
 
         gameManager = GameManager._instance;
@@ -34,6 +38,15 @@ public class TestEnemy : MonoBehaviour
         if (ClosestEnemy()) //If there is a closest enemy
         {
             agent.SetDestination(ClosestEnemy().position);
+
+            if (Vector3.Distance(transform.position, agent.destination) <= startAttackDistance)
+            {
+                fighter.StartAttack();
+            }
+            else
+            {
+                fighter.StopAttack();
+            }
         }
     }
 
