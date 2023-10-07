@@ -11,6 +11,7 @@ public class EnemyLoot : MonoBehaviour
     {
         // Instantiate the itemToDrop GameObject at the enemy's position.
         Instantiate(HealthPowerUp, transform.position, Quaternion.identity);
+
     }
 
 
