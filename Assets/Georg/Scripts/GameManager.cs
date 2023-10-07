@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager _instance;
 
+    [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private float messageTime;
+    private Coroutine messageCoroutine; //Store in a variable to avoid accidental override
 
     [SerializeField] private TextMeshProUGUI timerText;
     public int recruitementTotalSeconds;
@@ -31,13 +34,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-
-        StartCoroutine(Timer());
     }
 
     void Start()
     {
         gameState = GameState.Recruitement;
+        messageText.text = string.Empty;
+
+        StartCoroutine(Timer());
     }
 
     // Update is called once per frame
@@ -46,38 +50,53 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public IEnumerator Timer()
+    private IEnumerator Timer()
     {
         int timerSecondsLeft = recruitementTotalSeconds;
-        var ts = TimeSpan.FromSeconds(timerSecondsLeft);
-        timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+        TimeSpan ts;
+
+        DisplayMessage("The people are as angry as you are! Rally them to your call!");
 
         //Recruitement period
         while (timerSecondsLeft > 0)
         {
             
-            yield return new WaitForSeconds(1); //Else use regular scaled time that allows pauses
+            ts = TimeSpan.FromSeconds(timerSecondsLeft);
+            timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+
+            yield return new WaitForSeconds(1);
 
             timerSecondsLeft--;
 
-            ts = TimeSpan.FromSeconds(timerSecondsLeft);
-            timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
         }
 
         timerSecondsLeft = getToCastleTotalSeconds;
         gameState = GameState.GetToCastle;
 
-        while (timerSecondsLeft > 0)
+        DisplayMessage("It's time to take your cruel overlords down! Head to the castle gates!");
+
+        while (timerSecondsLeft > 0 && gameState!=GameState.Attacking)
         {
-            yield return new WaitForSeconds(1); //Else use regular scaled time that allows pauses
+            ts = TimeSpan.FromSeconds(timerSecondsLeft);
+            timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+
+            yield return new WaitForSeconds(1);
 
             timerSecondsLeft--;
 
-            ts = TimeSpan.FromSeconds(timerSecondsLeft);
-            timerText.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
         }
 
-        Debug.Log("Lose condition");
+        timerText.text = string.Empty;
+
+        if(gameState==GameState.Attacking)
+        {
+            DisplayMessage("ATTAAAAAAACK!!");
+        }
+        else
+        {
+            Debug.Log("Lose condition");
+        }
+
     }
 
     public void BeginAttack()
@@ -88,5 +107,22 @@ public class GameManager : MonoBehaviour
         {
             villager.GoToAttackPoint(castleAttackPoint.position);
         }
+    }
+
+    private void DisplayMessage(string message)
+    {
+        if(messageCoroutine != null)
+        {
+            StopCoroutine(messageCoroutine);
+        }
+
+        messageCoroutine = StartCoroutine(DisplayMessageCoroutine(message));
+    }
+
+    private IEnumerator DisplayMessageCoroutine(string message)
+    {
+        messageText.text = message;
+        yield return new WaitForSeconds(messageTime);
+        messageText.text = string.Empty;
     }
 }
