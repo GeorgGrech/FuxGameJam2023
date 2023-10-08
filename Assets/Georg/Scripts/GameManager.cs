@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager _instance;
 
     [SerializeField] private TextMeshProUGUI messageText;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PointerUI pointerUI;
 
     [SerializeField] private float endGameDelay;
+    [SerializeField] private float endGameDelayPostMessage;
 
     public bool gameEnded;
 
@@ -51,13 +52,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameState = GameState.Recruitement;
-        messageText.text = string.Empty;
+        if(messageText)
+            messageText.text = string.Empty;
 
-        pointerUI.Show(false);
-        pointerUI.pointingTo = door.position;
+        if (pointerUI)
+        {
+            pointerUI.Show(false);
+            pointerUI.pointingTo = door.position;
+        }
 
         audioSource = GetComponent<AudioSource>();
-        StartCoroutine(Timer());
+
+        if(timerText)
+            StartCoroutine(Timer());
     }
 
     // Update is called once per frame
@@ -134,12 +141,15 @@ public class GameManager : MonoBehaviour
 
     private void DisplayMessage(string message)
     {
-        if(messageCoroutine != null)
+        if (messageText)
         {
-            StopCoroutine(messageCoroutine);
-        }
+            if(messageCoroutine != null)
+            {
+                StopCoroutine(messageCoroutine);
+            }
 
-        messageCoroutine = StartCoroutine(DisplayMessageCoroutine(message));
+            messageCoroutine = StartCoroutine(DisplayMessageCoroutine(message));
+        }
     }
 
     private IEnumerator DisplayMessageCoroutine(string message)
@@ -187,5 +197,9 @@ public class GameManager : MonoBehaviour
         }
 
         audioSource.Play();
+
+        yield return new WaitForSeconds(endGameDelayPostMessage);
+
+        SceneManager.LoadScene(0);
     }
 }

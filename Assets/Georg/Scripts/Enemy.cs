@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
             gameManager.castleEnemies.Add(transform);
             gameManager.castleEnemyCount++;
         }
+
+        transform.rotation = Quaternion.Euler(new Vector3(90, Random.Range(0, 360), 0)); //Random rotation on start
     }
 
     void Update()

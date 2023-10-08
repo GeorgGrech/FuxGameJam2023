@@ -13,8 +13,16 @@ public class EnemyLoot : MonoBehaviour
         // Check if a random value falls within the drop rate range.
         if (Random.value <= dropRate)
         {
-            // Determine which power-up to drop randomly.
-            GameObject powerUpToDrop = (Random.value <= 0.5f) ? HealthPowerUp : RagePowerUp;
+            GameObject powerUpToDrop;
+
+            if (HealthPowerUp == null)
+                powerUpToDrop = RagePowerUp;
+
+            else if (RagePowerUp == null)
+                powerUpToDrop = HealthPowerUp;
+
+            else
+                powerUpToDrop = (Random.value <= 0.5f) ? HealthPowerUp : RagePowerUp;
 
             // Instantiate the chosen power-up at the enemy's position.
             Instantiate(powerUpToDrop, transform.position, Quaternion.identity);

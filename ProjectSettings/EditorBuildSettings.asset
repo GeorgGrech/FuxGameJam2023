@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Joppe/StartMenu.unity
     guid: 6f7daee3b896e6641bda5d2cd52e51ed
   - enabled: 1
+    path: Assets/Scenes/FinalGame.unity
+    guid: 390956c896557c1409cfd9af3ae876a0
+  - enabled: 1
     path: Assets/Joppe/Landscapescene.unity
     guid: 1e25c6b84fd9df84aa51bd9415b6f32b
   m_configObjects: {}

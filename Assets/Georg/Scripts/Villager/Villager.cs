@@ -52,6 +52,8 @@ public class Villager : MonoBehaviour
         gameManager = GameManager._instance;
 
         audioSource = GetComponent<AudioSource>();
+
+        transform.rotation = Quaternion.Euler(new Vector3(90, Random.Range(0, 360), 0)); //Random rotation on start
     }
 
     // Update is called once per frame
