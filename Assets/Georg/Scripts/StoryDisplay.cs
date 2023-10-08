@@ -28,6 +28,6 @@ public class StoryDisplay : MonoBehaviour
         }
         yield return new WaitForSeconds(5);
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 }

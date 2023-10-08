@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Joppe/StartMenu.unity
-    guid: 6f7daee3b896e6641bda5d2cd52e51ed
-  - enabled: 1
     path: Assets/Scenes/Storyboard.unity
     guid: 1da0ca3f815e3f44d837ede8c0143dc6
+  - enabled: 1
+    path: Assets/Joppe/Tutorial.unity
+    guid: 6f7daee3b896e6641bda5d2cd52e51ed
   - enabled: 1
     path: Assets/Scenes/FinalGame.unity
     guid: 390956c896557c1409cfd9af3ae876a0
