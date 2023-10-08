@@ -54,7 +54,15 @@ MonoBehaviour:
   - I don't even know why I'm angry!
   - Give me back my chicken!
   - I have nothing better to do!
+  - Huzzah!
+  - Join you, I shall!
+  - I like Baked Beans!
+  - D' you want some TWINNINGS MATE ?
+  - Can't touch this.
+  - Hooray, violence!
+  - REVOLUTION (chicken edition)
   villagerMessageTime: 5
+  message: {fileID: 0}
 --- !u!135 &4140996752358099438
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -433,6 +441,7 @@ MonoBehaviour:
   baseSpeed: 5
   movementSpeed: 5
   defendingSpeed: 2
+  originalMovementSpeed: 0
   characterBody: {fileID: 903157334863650100}
 --- !u!114 &6649567899691015635
 MonoBehaviour:

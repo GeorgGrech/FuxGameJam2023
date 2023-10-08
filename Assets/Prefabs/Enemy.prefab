@@ -257,7 +257,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPowerUp: {fileID: 4019881466057142370, guid: 19c61f839b5b22342b5c0b6a2645c629,
     type: 3}
-  RagePowerUp: {fileID: 0}
+  RagePowerUp: {fileID: 5452468568883463142, guid: bd5243326249eab4a972c2d9e90c47d9,
+    type: 3}
+  dropRate: 0.5
 --- !u!114 &6779312554960954090
 MonoBehaviour:
   m_ObjectHideFlags: 0

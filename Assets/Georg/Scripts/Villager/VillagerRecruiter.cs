@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 public class VillagerRecruiter : MonoBehaviour
@@ -16,13 +17,16 @@ public class VillagerRecruiter : MonoBehaviour
     [SerializeField] private float recruitSizeIncrease = .15f;
 
     [SerializeField] private List<string> villagerMessages; 
-    [SerializeField] private float villagerMessageTime; 
+    [SerializeField] private float villagerMessageTime;
 
+    [SerializeField] private TextMeshProUGUI message;
     // Start is called before the first frame update
     void Start()
     {
         //radiusCollider = GetComponent<SphereCollider>();
         gameManager = GameManager._instance;
+        message = transform.parent.GetComponentInChildren<TextMeshProUGUI>();
+        message.color = Color.cyan;
     }
 
     // Update is called once per frame
@@ -31,6 +35,15 @@ public class VillagerRecruiter : MonoBehaviour
         if (gameManager.gameState != GameManager.GameState.Attacking)
         {
             RecruitEnemyInput();
+        }
+
+        if (unrecruitedInRange.Count > 0)
+        {
+            message.text = "Hold 'E' to recruit";
+        }
+        else
+        {
+            message.text = string.Empty;
         }
     }
 

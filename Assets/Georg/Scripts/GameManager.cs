@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         int timerSecondsLeft = recruitementTotalSeconds;
         TimeSpan ts;
 
-        DisplayMessage("The people are as angry as you are! Rally them to your call!");
+        DisplayMessage("Get the people riled up! Recruit them to your cause!");
 
         //Recruitement period
         while (timerSecondsLeft > 0)
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         timerSecondsLeft = getToCastleTotalSeconds;
         gameState = GameState.GetToCastle;
 
-        DisplayMessage("It's time to take your cruel overlords down! Head to the castle gates!");
+        DisplayMessage("It's time to tear your cruel overlords down! Head to the castle gates!");
 
         while (timerSecondsLeft > 0 && gameState!=GameState.Attacking)
         {
