@@ -709,6 +709,10 @@ MonoBehaviour:
   castleEnemyCount: 0
   door: {fileID: 2065174002}
   pointerUI: {fileID: 5712472303146308096}
+  endGameDelay: 0
+  gameEnded: 0
+  winSound: {fileID: 0}
+  loseSound: {fileID: 0}
   gameState: 0
 --- !u!1 &855551873
 GameObject:
@@ -3154,6 +3158,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916416742521959469, guid: 5ed07ff8420a3154c99b354e9c553ce8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
