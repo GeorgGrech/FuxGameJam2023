@@ -480,6 +480,8 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   HealthBarObject: {fileID: 1720655524678140640}
+  deathParticles: {fileID: 3287049305692962593, guid: 820813c75c6a8194292cee8a57c47569,
+    type: 3}
 --- !u!1 &3180598845349452404
 GameObject:
   m_ObjectHideFlags: 0
