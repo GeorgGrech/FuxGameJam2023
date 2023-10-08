@@ -227,6 +227,8 @@ MonoBehaviour:
   MaxHealth: 50
   CurrentHealth: 0
   HealthBarObject: {fileID: 898250357997660774}
+  deathParticles: {fileID: 3287049305692962593, guid: 820813c75c6a8194292cee8a57c47569,
+    type: 3}
 --- !u!114 &1629305780055411063
 MonoBehaviour:
   m_ObjectHideFlags: 0

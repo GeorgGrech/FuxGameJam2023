@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
 
     private Fighter fighter; // Reference to the Fighter script to check if defending.
 
+    [SerializeField] private GameObject deathParticles;
+
     private void Start()
     {
         // Initialize the current health to the maximum health when the entity spawns.
@@ -67,6 +69,7 @@ public class Health : MonoBehaviour
         {
             GameManager._instance.Lose();
         }
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }
