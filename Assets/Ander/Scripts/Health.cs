@@ -13,6 +13,9 @@ public class Health : MonoBehaviour
 
     [SerializeField] private GameObject deathParticles;
 
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip damageSound;
+
     private void Start()
     {
         // Initialize the current health to the maximum health when the entity spawns.
@@ -24,6 +27,8 @@ public class Health : MonoBehaviour
 
         // Get a reference to the Fighter script attached to the same GameObject.
         fighter = GetComponent<Fighter>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void TakeDamage(int damage)
@@ -50,6 +55,10 @@ public class Health : MonoBehaviour
         // Update the health bar's fill amount.
         healthBar.fillAmount = newFillAmount;
 
+        audioSource.clip = damageSound;
+        audioSource.pitch = Random.Range(.8f, 1.3f);
+        audioSource.Play();
+
         // Check if health has dropped to or below zero.
         if (CurrentHealth <= 0)
         {
@@ -67,7 +76,7 @@ public class Health : MonoBehaviour
         }
         else if (CompareTag("Player"))
         {
-            GameManager._instance.Lose();
+            GameManager._instance.GameEnded(false); //Lose game
         }
         Instantiate(deathParticles, transform.position, Quaternion.identity);
 

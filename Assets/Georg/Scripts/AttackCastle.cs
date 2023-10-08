@@ -19,7 +19,7 @@ public class AttackCastle : MonoBehaviour
 
     private void OnTriggerStay(Collider other) //OnTriggerStay just in case player happens to already be in trigger
     {
-        if (other.CompareTag("Player") && gameManager.gameState==GameManager.GameState.GetToCastle)
+        if (other.CompareTag("Player") && gameManager.gameState==GameManager.GameState.GetToCastle && !gameManager.gameEnded)
         {
             gameManager.BeginAttack();
         }

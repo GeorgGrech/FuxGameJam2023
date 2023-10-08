@@ -25,7 +25,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform door;
     [SerializeField] private PointerUI pointerUI;
 
-    private bool lost;
+    [SerializeField] private float endGameDelay;
+
+    public bool gameEnded;
+
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    private AudioSource audioSource;
     public enum GameState
     {
         Recruitement,
@@ -50,6 +56,7 @@ public class GameManager : MonoBehaviour
         pointerUI.Show(false);
         pointerUI.pointingTo = door.position;
 
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Timer());
     }
 
@@ -104,10 +111,11 @@ public class GameManager : MonoBehaviour
         {
             DisplayMessage("ATTAAAAAAACK!!");
             door.GetComponent<Animator>().Play("DoorOpen");
+            door.GetComponent<AudioSource>().Play();
         }
         else
         {
-            Lose();
+            GameEnded(false); //Lose
         }
 
     }
@@ -148,16 +156,36 @@ public class GameManager : MonoBehaviour
 
         if(castleEnemyCount <= 0)
         {
-            Debug.Log("Win condition");
+            GameEnded(true);
         }
     }
 
-    public void Lose() //Add parameter later for type of loss?
+    public void GameEnded(bool win) //Add parameter later for type of loss?
     {
-        if (!lost) //Ensures no duplicate loss screens
+        if (!gameEnded) //Ensures no duplicate loss screens
         {
-            lost = true;
-            Debug.Log("Lose condition");
+            gameEnded = true;
+            StartCoroutine(DelayEndGame(win));
         }
+    }
+
+    private IEnumerator DelayEndGame(bool win)
+    {
+        yield return new WaitForSeconds(endGameDelay);
+
+        if(win)
+        {
+            Debug.Log("Win condition");
+            audioSource.clip = winSound;
+            DisplayMessage("The monarchy has been overthrown! What a joyous day!");
+        }
+        else
+        {
+            Debug.Log("Lose Condition");
+            audioSource.clip = loseSound;
+            DisplayMessage("Welp...better luck next time?");
+        }
+
+        audioSource.Play();
     }
 }
