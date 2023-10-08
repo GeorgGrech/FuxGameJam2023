@@ -200,6 +200,9 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(endGameDelayPostMessage);
 
-        SceneManager.LoadScene(0);
+        if (win)
+            SceneManager.LoadScene(3);
+        else
+            SceneManager.LoadScene(0);
     }
 }
