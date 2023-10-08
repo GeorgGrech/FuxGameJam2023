@@ -67,7 +67,7 @@ public class Health : MonoBehaviour
         }
         else if (CompareTag("Player"))
         {
-            GameManager._instance.Lose();
+            GameManager._instance.GameEnded(false); //Lose game
         }
         Instantiate(deathParticles, transform.position, Quaternion.identity);
 

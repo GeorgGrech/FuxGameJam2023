@@ -33,6 +33,10 @@ public class Villager : MonoBehaviour
     TextMeshProUGUI villagerMessage;
 
     [SerializeField] private List<MeshRenderer> toRecolor;
+
+    AudioSource audioSource;
+    [SerializeField] List<AudioClip> recruitSounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,8 @@ public class Villager : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
 
         gameManager = GameManager._instance;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -107,6 +113,7 @@ public class Villager : MonoBehaviour
     public void Speak(string message, float time)
     {
         StartCoroutine(SpeakCoroutine(message, time));
+        PlayRecruitSound();
     }
 
     public IEnumerator SpeakCoroutine(string message, float time)
@@ -114,6 +121,13 @@ public class Villager : MonoBehaviour
         villagerMessage.text = message;
         yield return new WaitForSeconds(time);
         villagerMessage.text = string.Empty;
+    }
+
+    private void PlayRecruitSound()
+    {
+        audioSource.clip = recruitSounds[Random.Range(0,recruitSounds.Count)];
+        audioSource.pitch = Random.Range(.9f, 1.3f);
+        audioSource.Play();
     }
 
     public void GoToAttackPoint(Vector3 attackPoint)

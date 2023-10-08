@@ -1020,6 +1020,7 @@ MonoBehaviour:
   castleEnemyCount: 0
   door: {fileID: 2065174002}
   pointerUI: {fileID: 5712472303146308096}
+  endGameDelay: 2
   gameState: 0
 --- !u!1001 &651478149
 PrefabInstance:
