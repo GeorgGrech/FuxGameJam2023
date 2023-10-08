@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform door;
     [SerializeField] private PointerUI pointerUI;
 
-    private bool lost;
+    [SerializeField] private float endGameDelay;
+
+    public bool gameEnded;
     public enum GameState
     {
         Recruitement,
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Lose();
+            GameEnded(false); //Lose
         }
 
     }
@@ -148,16 +150,31 @@ public class GameManager : MonoBehaviour
 
         if(castleEnemyCount <= 0)
         {
-            Debug.Log("Win condition");
+            GameEnded(true);
         }
     }
 
-    public void Lose() //Add parameter later for type of loss?
+    public void GameEnded(bool win) //Add parameter later for type of loss?
     {
-        if (!lost) //Ensures no duplicate loss screens
+        if (!gameEnded) //Ensures no duplicate loss screens
         {
-            lost = true;
-            Debug.Log("Lose condition");
+            gameEnded = true;
+            StartCoroutine(DelayEndGame(win));
         }
+    }
+
+    private IEnumerator DelayEndGame(bool win)
+    {
+        yield return new WaitForSeconds(endGameDelay);
+
+        if(win)
+        {
+            Debug.Log("Win condition");
+        }
+        else
+        {
+            Debug.Log("Lose Condition");
+        }
+
     }
 }
