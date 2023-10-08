@@ -287,6 +287,7 @@ MonoBehaviour:
   HealthBarObject: {fileID: 4212283568262012892}
   deathParticles: {fileID: 3287049305692962593, guid: 820813c75c6a8194292cee8a57c47569,
     type: 3}
+  damageSound: {fileID: 8300000, guid: d561f44dc00f59c438426a2b8bdbd29a, type: 3}
 --- !u!114 &4375690500200580057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

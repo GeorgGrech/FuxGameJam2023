@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         {
             DisplayMessage("ATTAAAAAAACK!!");
             door.GetComponent<Animator>().Play("DoorOpen");
+            door.GetComponent<AudioSource>().Play();
         }
         else
         {
