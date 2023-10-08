@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float endGameDelay;
 
     public bool gameEnded;
+
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    private AudioSource audioSource;
     public enum GameState
     {
         Recruitement,
@@ -52,6 +56,7 @@ public class GameManager : MonoBehaviour
         pointerUI.Show(false);
         pointerUI.pointingTo = door.position;
 
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(Timer());
     }
 
@@ -170,11 +175,14 @@ public class GameManager : MonoBehaviour
         if(win)
         {
             Debug.Log("Win condition");
+            audioSource.clip = winSound;
         }
         else
         {
             Debug.Log("Lose Condition");
+            audioSource.clip = loseSound;
         }
 
+        audioSource.Play();
     }
 }
