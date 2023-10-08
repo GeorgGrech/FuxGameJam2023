@@ -56,6 +56,7 @@ public class RagePowerUp : MonoBehaviour
         // Check if the power-up is active and has expired.
         if (powerUpActive && Time.time >= powerUpEndTimeStatic)
         {
+            Debug.Log("Power-up has expired.");
             // Deactivate the power-up.
             DeactivatePowerUp();
         }
