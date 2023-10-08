@@ -55,7 +55,7 @@ MonoBehaviour:
   castleEnemyCount: 0
   door: {fileID: 0}
   pointerUI: {fileID: 0}
-  endGameDelay: 2
+  endGameDelay: 1
   gameEnded: 0
   winSound: {fileID: 8300000, guid: 72d64a3d639ea7f48ad7eb85da7493c9, type: 3}
   loseSound: {fileID: 8300000, guid: 2081ff088e7b4344fb462a3ac6ae2ca8, type: 3}

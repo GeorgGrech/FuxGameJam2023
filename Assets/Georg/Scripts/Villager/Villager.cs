@@ -35,7 +35,7 @@ public class Villager : MonoBehaviour
     [SerializeField] private List<MeshRenderer> toRecolor;
 
     AudioSource audioSource;
-    [SerializeField] AudioClip recruitSound;
+    [SerializeField] List<AudioClip> recruitSounds;
 
     // Start is called before the first frame update
     void Start()
@@ -125,7 +125,7 @@ public class Villager : MonoBehaviour
 
     private void PlayRecruitSound()
     {
-        audioSource.clip = recruitSound;
+        audioSource.clip = recruitSounds[Random.Range(0,recruitSounds.Count)];
         audioSource.pitch = Random.Range(.9f, 1.3f);
         audioSource.Play();
     }

@@ -176,11 +176,13 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Win condition");
             audioSource.clip = winSound;
+            DisplayMessage("The monarchy has been overthrown! What a joyous day!");
         }
         else
         {
             Debug.Log("Lose Condition");
             audioSource.clip = loseSound;
+            DisplayMessage("Welp...better luck next time?");
         }
 
         audioSource.Play();

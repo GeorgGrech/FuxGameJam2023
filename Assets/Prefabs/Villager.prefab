@@ -196,7 +196,10 @@ MonoBehaviour:
   - {fileID: 1509009784111710167}
   - {fileID: 6416809084556336864}
   - {fileID: 9066294788178077872}
-  recruitSound: {fileID: 8300000, guid: 61cd82c3b9ee8f94fa3f2b80202afc31, type: 3}
+  recruitSounds:
+  - {fileID: 8300000, guid: 45293155dd9ba7b45805b689cc864ad3, type: 3}
+  - {fileID: 8300000, guid: 8bdcee694ca48d64a8fb36e00dae775a, type: 3}
+  - {fileID: 8300000, guid: 61cd82c3b9ee8f94fa3f2b80202afc31, type: 3}
 --- !u!54 &4510679669046740057
 Rigidbody:
   m_ObjectHideFlags: 0
